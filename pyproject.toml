@@ -5,41 +5,32 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "detecty"
 version = "0.1.0"
-description = "Automatic YOLO label generation for RoboCup@Home objects: Grounding DINO localization + DINOv3/colour/OCR ensemble classification."
+description = "Object detection pipeline for RoboCup@Home objects: Grounding DINO localization + DINOv3/colour/OCR ensemble classification, exposed as a callable API."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "detecty" }]
-keywords = ["yolo", "robocup", "auto-labeling", "dinov3", "grounding-dino", "object-detection"]
+keywords = ["object-detection", "robocup", "dinov3", "grounding-dino", "ocr"]
 
-# Core deps for the recommended ensemble pipeline (CPU-friendly).
+# Core deps for the detection pipeline (CPU-friendly).
 # Install torch/torchvision separately for your platform (see README).
 dependencies = [
     "numpy",
     "pillow",
     "pyyaml",
     "opencv-python-headless",
-    "tqdm",
     "timm>=1.0",            # DINOv3 backbone
     "transformers>=4.40",   # Grounding DINO localizer
 ]
 
 [project.optional-dependencies]
-ocr = ["easyocr"]                         # OCR brand-matching
-yoloe = ["ultralytics>=8.2"]              # experimental YOLOE few-shot labeler
-train = ["ultralytics>=8.2", "scipy", "pandas"]
-vlm = ["openai>=1.0"]                     # optional Gemma/vLLM consult (off by default)
-all = ["easyocr", "ultralytics>=8.2", "scipy", "pandas", "openai>=1.0"]
+ocr = ["easyocr"]            # OCR brand-matching (recommended)
+vlm = ["openai>=1.0"]        # optional Gemma/vLLM consult (off by default)
+all = ["easyocr", "openai>=1.0"]
 
 [project.scripts]
-detecty-extract-frames  = "detecty.extract_frames:main"
-detecty-localize        = "detecty.localize_gd:main"
 detecty-build-prototypes = "detecty.build_prototypes:main"
-detecty-label           = "detecty.autolabel_embed:main"
-detecty-label-yoloe     = "detecty.autolabel_yoloe:main"
-detecty-visualize       = "detecty.visualize:main"
-detecty-split           = "detecty.split_dataset:main"
-detecty-train           = "detecty.train_yolo:main"
+detecty-detect           = "detecty.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/your-org/detecty"
@@ -48,4 +39,4 @@ Homepage = "https://github.com/your-org/detecty"
 where = ["src"]
 
 [tool.setuptools.package-data]
-detecty = ["data/*.yaml", "data/*.slurm"]
+detecty = ["data/*.yaml"]

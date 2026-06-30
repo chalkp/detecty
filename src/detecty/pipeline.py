@@ -22,7 +22,7 @@ from pathlib import Path
 
 import numpy as np
 import yaml
-from PIL import Image, ImageOps
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 from . import vlm_consult
 from ._resources import default_config, default_ensemble
@@ -30,6 +30,16 @@ from .embedder import DEFAULT_MODEL, Embedder
 from .features import hist_intersection, masked_hue_hist
 from .localize_gd import detect as gd_detect
 from .localize_gd import load_config
+
+# colours cycled per class id for draw()
+PALETTE = [
+    (230, 25, 75), (60, 180, 75), (0, 130, 200), (245, 130, 48), (145, 30, 180),
+    (70, 240, 240), (240, 50, 230), (210, 245, 60), (250, 190, 190), (0, 128, 128),
+    (170, 110, 40), (255, 215, 0), (128, 0, 0), (170, 255, 195), (0, 0, 128),
+    (128, 128, 0), (255, 99, 71), (46, 139, 87), (30, 144, 255), (218, 112, 214),
+    (160, 82, 45), (199, 21, 133), (47, 79, 79), (255, 140, 0), (0, 191, 255),
+    (220, 20, 60), (34, 139, 34), (138, 43, 226), (210, 105, 30), (1, 50, 32),
+]
 
 
 class SamYolo:
@@ -185,6 +195,39 @@ class SamYolo:
             "num_review": sum(x["review"] for x in dets),
             "detections": dets,
         }
+
+    def detect_batch(self, images, min_box=8):
+        """Detect on many images. Returns list of per-image result dicts (same
+        schema as detect()). Each image is handled independently."""
+        return [self.detect(im, min_box=min_box) for im in images]
+
+    # --------------------------------------------------------------- draw
+    def draw(self, image, result, max_side=1600):
+        """Return a PIL image with `result` boxes drawn. Confident boxes are
+        coloured per class; review boxes are grey and prefixed '?'."""
+        if isinstance(image, (str, Path)):
+            img = ImageOps.exif_transpose(Image.open(image).convert("RGB"))
+        else:
+            img = image.convert("RGB")
+        W, H = img.size
+        s = max_side / max(W, H) if max(W, H) > max_side else 1.0
+        img = img.resize((round(W * s), round(H * s)))
+        d = ImageDraw.Draw(img)
+        try:
+            font = ImageFont.truetype("DejaVuSans-Bold.ttf", max(13, img.size[0] // 90))
+        except Exception:
+            font = ImageFont.load_default()
+        for x in result["detections"]:
+            x1, y1, x2, y2 = (v * s for v in x["bbox"])
+            if x["review"]:
+                col, label = (130, 130, 130), f"?{x['class']}"
+            else:
+                col, label = PALETTE[x["class_id"] % len(PALETTE)], f"{x['class']} {x['score']:.2f}"
+            d.rectangle([x1, y1, x2, y2], outline=col, width=3)
+            tb = d.textbbox((x1, y1), label, font=font)
+            d.rectangle([tb[0], tb[1], tb[2] + 4, tb[3] + 2], fill=col)
+            d.text((x1 + 2, y1), label, fill=(255, 255, 255), font=font)
+        return img
 
     # ------------------------------------------------------------- shutdown
     def shutdown(self):

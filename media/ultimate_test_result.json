@@ -1,0 +1,583 @@
+{
+  "width": 4056,
+  "height": 1872,
+  "num_detections": 20,
+  "num_review": 3,
+  "detections": [
+    {
+      "class": "pepsi",
+      "class_id": 7,
+      "score": 1.5465,
+      "margin": 0.8806,
+      "candidates": [
+        "pepsi",
+        "coke",
+        "red_bull"
+      ],
+      "bbox": [
+        1198.1,
+        177.5,
+        1447.9,
+        772.5
+      ],
+      "bbox_norm": [
+        0.326187,
+        0.253721,
+        0.06159,
+        0.317854
+      ],
+      "review": false,
+      "source": "ocr"
+    },
+    {
+      "class": "pepsi",
+      "class_id": 7,
+      "score": 0.9815,
+      "margin": 0.2913,
+      "candidates": [
+        "pepsi",
+        "red_bull",
+        "coke"
+      ],
+      "bbox": [
+        936.1,
+        184.6,
+        1192.9,
+        655.9
+      ],
+      "bbox_norm": [
+        0.262448,
+        0.224491,
+        0.063316,
+        0.251809
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "cornflakes",
+      "class_id": 11,
+      "score": 0.9972,
+      "margin": 0.2641,
+      "candidates": [
+        "cornflakes",
+        "instant_noodles",
+        "pringles"
+      ],
+      "bbox": [
+        2762.2,
+        735.7,
+        2995.9,
+        986.0
+      ],
+      "bbox_norm": [
+        0.709814,
+        0.459848,
+        0.057616,
+        0.133734
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "pringles",
+      "class_id": 13,
+      "score": 0.8364,
+      "margin": 0.1708,
+      "candidates": [
+        "pringles",
+        "coke",
+        "red_bull"
+      ],
+      "bbox": [
+        2201.8,
+        952.4,
+        2426.1,
+        1500.3
+      ],
+      "bbox_norm": [
+        0.5705,
+        0.655091,
+        0.055285,
+        0.292673
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "instant_noodles",
+      "class_id": 12,
+      "score": 0.7659,
+      "margin": 0.0459,
+      "candidates": [
+        "instant_noodles",
+        "pringles",
+        "cornflakes"
+      ],
+      "bbox": [
+        1988.3,
+        700.9,
+        3098.7,
+        1287.0
+      ],
+      "bbox_norm": [
+        0.627098,
+        0.530977,
+        0.273757,
+        0.313084
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "pringles",
+      "class_id": 13,
+      "score": 0.7519,
+      "margin": 0.1609,
+      "candidates": [
+        "pringles",
+        "coke",
+        "red_bull"
+      ],
+      "bbox": [
+        3030.7,
+        990.3,
+        3368.6,
+        1569.8
+      ],
+      "bbox_norm": [
+        0.78887,
+        0.683782,
+        0.083321,
+        0.309576
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "cornflakes",
+      "class_id": 11,
+      "score": 0.969,
+      "margin": 0.1686,
+      "candidates": [
+        "cornflakes",
+        "instant_noodles",
+        "pringles"
+      ],
+      "bbox": [
+        2545.7,
+        704.9,
+        3087.8,
+        995.6
+      ],
+      "bbox_norm": [
+        0.694465,
+        0.454199,
+        0.133645,
+        0.155291
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "lemon",
+      "class_id": 17,
+      "score": 0.9349,
+      "margin": 0.5676,
+      "candidates": [
+        "lemon",
+        "yellow_bellpepper",
+        "peach"
+      ],
+      "bbox": [
+        2051.5,
+        781.1,
+        2197.8,
+        922.9
+      ],
+      "bbox_norm": [
+        0.523825,
+        0.455136,
+        0.036076,
+        0.075777
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "peach",
+      "class_id": 16,
+      "score": 0.657,
+      "margin": 0.0271,
+      "candidates": [
+        "peach",
+        "lemon",
+        "mangostane"
+      ],
+      "bbox": [
+        1634.5,
+        610.1,
+        1791.7,
+        751.5
+      ],
+      "bbox_norm": [
+        0.422357,
+        0.363667,
+        0.038772,
+        0.075527
+      ],
+      "review": true,
+      "source": "ensemble"
+    },
+    {
+      "class": "peach",
+      "class_id": 16,
+      "score": 0.6028,
+      "margin": 0.1928,
+      "candidates": [
+        "peach",
+        "apple",
+        "mangostane"
+      ],
+      "bbox": [
+        1434.3,
+        641.4,
+        1602.8,
+        776.1
+      ],
+      "bbox_norm": [
+        0.3744,
+        0.378595,
+        0.04156,
+        0.071962
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "cornflakes",
+      "class_id": 11,
+      "score": 1.0117,
+      "margin": 0.3249,
+      "candidates": [
+        "cornflakes",
+        "pringles",
+        "instant_noodles"
+      ],
+      "bbox": [
+        2080.0,
+        449.3,
+        2312.7,
+        677.1
+      ],
+      "bbox_norm": [
+        0.541506,
+        0.300867,
+        0.057373,
+        0.121683
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "cornflakes",
+      "class_id": 11,
+      "score": 0.9068,
+      "margin": 0.1562,
+      "candidates": [
+        "cornflakes",
+        "pringles",
+        "instant_noodles"
+      ],
+      "bbox": [
+        2086.4,
+        603.1,
+        2295.2,
+        813.5
+      ],
+      "bbox_norm": [
+        0.540135,
+        0.378377,
+        0.051462,
+        0.112378
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "lemon",
+      "class_id": 17,
+      "score": 0.3961,
+      "margin": 0.0184,
+      "candidates": [
+        "lemon",
+        "seaweed",
+        "knife"
+      ],
+      "bbox": [
+        1987.6,
+        1120.8,
+        2219.2,
+        1316.8
+      ],
+      "bbox_norm": [
+        0.518591,
+        0.65107,
+        0.057095,
+        0.10469
+      ],
+      "review": true,
+      "source": "ensemble"
+    },
+    {
+      "class": "coke",
+      "class_id": 6,
+      "score": 1.0715,
+      "margin": 0.2686,
+      "candidates": [
+        "coke",
+        "red_bull",
+        "pringles"
+      ],
+      "bbox": [
+        1379.0,
+        1036.9,
+        1557.7,
+        1347.7
+      ],
+      "bbox_norm": [
+        0.362011,
+        0.636908,
+        0.044064,
+        0.165984
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "cornflakes",
+      "class_id": 11,
+      "score": 0.9969,
+      "margin": 0.2851,
+      "candidates": [
+        "cornflakes",
+        "instant_noodles",
+        "pringles"
+      ],
+      "bbox": [
+        2601.3,
+        577.2,
+        2823.0,
+        814.1
+      ],
+      "bbox_norm": [
+        0.668676,
+        0.371621,
+        0.05467,
+        0.126535
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "coke",
+      "class_id": 6,
+      "score": 0.9791,
+      "margin": 0.1381,
+      "candidates": [
+        "coke",
+        "red_bull",
+        "pringles"
+      ],
+      "bbox": [
+        1340.3,
+        1159.7,
+        1537.1,
+        1485.3
+      ],
+      "bbox_norm": [
+        0.354709,
+        0.706469,
+        0.048505,
+        0.17394
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "seaweed",
+      "class_id": 14,
+      "score": 1.3906,
+      "margin": 0.6429,
+      "candidates": [
+        "seaweed",
+        "instant_noodles",
+        "cornflakes"
+      ],
+      "bbox": [
+        1794.1,
+        700.3,
+        2058.3,
+        1039.4
+      ],
+      "bbox_norm": [
+        0.474897,
+        0.464681,
+        0.06513,
+        0.181154
+      ],
+      "review": false,
+      "source": "ocr"
+    },
+    {
+      "class": "coke",
+      "class_id": 6,
+      "score": 1.056,
+      "margin": 0.2553,
+      "candidates": [
+        "coke",
+        "red_bull",
+        "pepsi"
+      ],
+      "bbox": [
+        1542.0,
+        1033.4,
+        1720.2,
+        1320.0
+      ],
+      "bbox_norm": [
+        0.402146,
+        0.6286,
+        0.043916,
+        0.153094
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "red_bull",
+      "class_id": 8,
+      "score": 0.651,
+      "margin": 0.0212,
+      "candidates": [
+        "red_bull",
+        "coke",
+        "pepsi"
+      ],
+      "bbox": [
+        1349.5,
+        718.7,
+        1813.6,
+        1169.8
+      ],
+      "bbox_norm": [
+        0.389922,
+        0.5044,
+        0.114434,
+        0.240981
+      ],
+      "review": true,
+      "source": "ensemble"
+    },
+    {
+      "class": "lemon",
+      "class_id": 17,
+      "score": 0.7848,
+      "margin": 0.357,
+      "candidates": [
+        "lemon",
+        "peach",
+        "red_bellpepper"
+      ],
+      "bbox": [
+        1637.8,
+        720.6,
+        1782.0,
+        851.1
+      ],
+      "bbox_norm": [
+        0.421575,
+        0.419799,
+        0.035545,
+        0.069748
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "instant_noodles",
+      "class_id": 12,
+      "score": 0.8943,
+      "margin": 0.1812,
+      "candidates": [
+        "instant_noodles",
+        "cornflakes",
+        "seaweed"
+      ],
+      "bbox": [
+        2345.0,
+        734.2,
+        2741.7,
+        1002.1
+      ],
+      "bbox_norm": [
+        0.627053,
+        0.463754,
+        0.097801,
+        0.143121
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "coke",
+      "class_id": 6,
+      "score": 0.9879,
+      "margin": 0.2278,
+      "candidates": [
+        "coke",
+        "red_bull",
+        "pringles"
+      ],
+      "bbox": [
+        1531.8,
+        1122.9,
+        1713.6,
+        1440.5
+      ],
+      "bbox_norm": [
+        0.400071,
+        0.684678,
+        0.044839,
+        0.169635
+      ],
+      "review": false,
+      "source": "ensemble"
+    },
+    {
+      "class": "rubiks_cube",
+      "class_id": 24,
+      "score": 0.8853,
+      "margin": 0.4969,
+      "candidates": [
+        "rubiks_cube",
+        "seaweed",
+        "red_bull"
+      ],
+      "bbox": [
+        1182.9,
+        851.6,
+        1406.6,
+        1111.9
+      ],
+      "bbox_norm": [
+        0.319216,
+        0.52444,
+        0.055145,
+        0.139057
+      ],
+      "review": false,
+      "source": "ensemble"
+    }
+  ]
+}
