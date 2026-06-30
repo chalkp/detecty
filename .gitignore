@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+
+# Model weights (downloaded on demand)
+*.pt
+
+# Generated artifacts
+prototypes.npz
+/dataset/
+/frames/
+/qa_*/
+/runs/
+/testset/
+
+# Raw capture data (large; supply your own under object/)
+/object/

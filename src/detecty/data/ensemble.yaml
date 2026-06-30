@@ -1,0 +1,41 @@
+# Fusion config for autolabel_embed.py (DINOv3 + colour + OCR ensemble).
+
+fusion:
+  w_color: 0.15        # weight on hue-histogram similarity
+  w_ocr:   0.50        # weight on an OCR brand match (decisive when text is read)
+  catalog_penalty: 0.05  # subtract from catalog-prototype sims (trust in-domain more)
+  margin_review: 0.04  # if top1-top2 fused score < this -> send crop to review/
+  min_top_score: 0.30  # if best score below this -> review (nothing matched well)
+
+ocr:
+  langs: [en, ko]      # Korean for soju (참이슬) etc.
+  min_conf: 0.30
+
+# OCR text (lowercased) -> class. Substring match; first hit wins per keyword list.
+brand_keywords:
+  coke:            [coca, coca-cola, cola, coke]
+  pepsi:           [pepsi]
+  red_bull:        [red bull, redbull, bull, energy]
+  pringles:        [pringles]
+  toothpaste:      [colgate, toothpaste, total]
+  soju:            [처음처럼, 처음, chum-churum, chumchurum, cheoeumcheoreom, 소주, soju]
+  cornflakes:      [corn, cornflakes, post, cereal, frosted]
+  instant_noodles: [noodle, ramen, ramyun, 라면, cup noodle]
+  seaweed:         [seaweed, 김, laver, nori]
+  milk:            [milk, 우유, 1l, 1.0l]
+  rubiks_cube:     [rubik, rubiks]
+
+# OCR brand match only counts if the predicted COARSE category is compatible,
+# to stop a stray "red" on a bell pepper from snapping to red_bull.
+category_of:      # class -> category (mirror of config.yaml categories)
+  coke: drinks
+  pepsi: drinks
+  red_bull: drinks
+  soju: drinks
+  milk: drinks
+  cornflakes: food
+  instant_noodles: food
+  pringles: snacks
+  seaweed: snacks
+  toothpaste: cleaning_supplies
+  rubiks_cube: toys

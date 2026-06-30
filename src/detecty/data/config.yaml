@@ -1,0 +1,73 @@
+# ============================================================================
+# RoboCup@Home 2026 (Incheon) — OFFICIAL Known Objects taxonomy.
+#
+# Class names + categories are the ground truth from:
+#   https://github.com/RoboCupAtHome/Incheon2026/tree/main/objects
+#   (objects/objects.md — 30 Known Objects in 8 categories)
+# Names match the official object names EXACTLY (coke, red_bull, rubiks_cube,
+# red_bellpepper, ...). Reference photos are mirrored in ./objects_gt/.
+#
+# All 30 official classes are listed for competition-complete labels. Some
+# (shirts, hand_towel, dishwasher_tab) likely have no instances in the current
+# tabletop photos — they will simply get no labels until you add data.
+#
+# Two labelers consume this file:
+#   autolabel.py       — Grounding DINO TEXT prompts (the `prompt` field)
+#   autolabel_yoloe.py — YOLOE VISUAL prompts (uses ./objects_gt images, the
+#                        official reference photos, as few-shot exemplars)
+# Grounding DINO can't read brands, so several drinks/cans/boxes that differ
+# only by brand WILL be confused on the text path — prefer the YOLOE visual
+# path for those (coke vs pepsi vs red_bull, cornflakes vs instant_noodles).
+# ============================================================================
+
+model:
+  id: "IDEA-Research/grounding-dino-tiny"
+  inference_longest_side: 1280
+
+defaults:
+  box_threshold: 0.30
+  text_threshold: 0.25
+  nms_iou: 0.55
+  min_box_area_frac: 0.0015   # drop tiny background specks
+  max_box_area_frac: 0.45     # drop whole-table/board boxes
+
+# id = YOLO class index. category matches the official object categories.
+classes:
+  # --- dishes ---
+  - {id: 0,  name: bowl,              category: dishes,            prompt: "a small bowl"}
+  - {id: 1,  name: cup,               category: dishes,            prompt: "a mug or cup"}
+  - {id: 2,  name: fork,              category: dishes,            prompt: "a fork"}
+  - {id: 3,  name: knife,             category: dishes,            prompt: "a knife"}
+  - {id: 4,  name: plate,             category: dishes,            prompt: "a round plate"}
+  - {id: 5,  name: spoon,             category: dishes,            prompt: "a spoon"}
+  # --- drinks ---
+  - {id: 6,  name: coke,              category: drinks,            prompt: "a red soda can"}
+  - {id: 7,  name: pepsi,             category: drinks,            prompt: "a dark cola soda bottle"}
+  - {id: 8,  name: red_bull,          category: drinks,            prompt: "a tall slim energy drink can"}
+  - {id: 9,  name: milk,              category: drinks,            prompt: "a small milk carton"}
+  - {id: 10, name: soju,              category: drinks,            prompt: "a clear glass liquor bottle"}
+  # --- food ---
+  - {id: 11, name: cornflakes,        category: food,              prompt: "a cereal cup container"}
+  - {id: 12, name: instant_noodles,   category: food,              prompt: "an instant noodle package"}
+  # --- snacks ---
+  - {id: 13, name: pringles,          category: snacks,            prompt: "a tall cylindrical potato chips can"}
+  - {id: 14, name: seaweed,           category: snacks,            prompt: "a green snack package"}
+  # --- fruits ---
+  - {id: 15, name: apple,             category: fruits,            prompt: "an apple"}
+  - {id: 16, name: peach,             category: fruits,            prompt: "a peach"}
+  - {id: 17, name: lemon,             category: fruits,            prompt: "a lemon"}
+  - {id: 18, name: mangostane,        category: fruits,            prompt: "a dark purple mangosteen fruit"}
+  - {id: 19, name: red_bellpepper,    category: fruits,            prompt: "a red bell pepper"}
+  - {id: 20, name: yellow_bellpepper, category: fruits,            prompt: "a yellow bell pepper"}
+  # --- cleaning_supplies ---
+  - {id: 21, name: sponge,            category: cleaning_supplies, prompt: "a kitchen dish sponge"}
+  - {id: 22, name: toothpaste,        category: cleaning_supplies, prompt: "a toothpaste box"}
+  - {id: 23, name: dishwasher_tab,    category: cleaning_supplies, prompt: "a small dishwasher tablet packet"}
+  # --- toys ---
+  - {id: 24, name: rubiks_cube,       category: toys,              prompt: "a colorful rubiks puzzle cube"}
+  # --- fabrics (laundry items; likely absent from tabletop photos) ---
+  - {id: 25, name: white_shirt,       category: fabrics,           prompt: "a folded white shirt"}
+  - {id: 26, name: grey_shirt,        category: fabrics,           prompt: "a folded grey shirt"}
+  - {id: 27, name: blue_shirt,        category: fabrics,           prompt: "a folded blue shirt"}
+  - {id: 28, name: black_shirt,       category: fabrics,           prompt: "a folded black shirt"}
+  - {id: 29, name: hand_towel,        category: fabrics,           prompt: "a rolled hand towel"}

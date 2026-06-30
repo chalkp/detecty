@@ -1,0 +1,42 @@
+# IN-DOMAIN few-shot exemplars for YOLOE visual-prompt labeling.
+#
+# IMPORTANT (empirical): YOLOE visual prompts work best when exemplars come from
+# the SAME domain as the targets (your own photos), NOT the clean catalog images
+# in objects_gt/ (those have too large a domain gap and barely detect anything).
+# Even so, cross-image YOLOE few-shot was found UNRELIABLE on these cluttered
+# tabletop scenes (low recall + large false positives). See README "YOLOE few-shot
+# findings". Treat this path as experimental; prefer Grounding DINO for bootstrap
+# labels and few-shot FINE-TUNING for accuracy.
+#
+# Format: one reference scene image with example boxes (xyxy, pixels of the
+# EXIF-corrected image). `cls` = global class id from config.yaml. The labeler
+# remaps these to LOCAL sequential ids per reference internally (YOLOE requires
+# visual_prompts cls to start at 0 and be contiguous — passing global ids breaks
+# detection). Add MORE exemplars per class (multiple views) to improve recall.
+
+images: object
+references:
+  - image: 20260630_222338.jpg
+    boxes:
+      - {cls: 4,  name: plate,    xyxy: [1380, 560, 2240, 1080]}
+      - {cls: 0,  name: bowl,     xyxy: [1560, 600, 1960, 940]}
+      - {cls: 5,  name: spoon,    xyxy: [1640, 1200, 2120, 1680]}
+      - {cls: 3,  name: knife,    xyxy: [1820, 1420, 2360, 1840]}
+      - {cls: 2,  name: fork,     xyxy: [2140, 1320, 2440, 1720]}
+  - image: 20260630_223230.jpg
+    boxes:
+      - {cls: 8,  name: red_bull, xyxy: [1280, 860, 1560, 1360]}
+      - {cls: 13, name: pringles, xyxy: [1940, 600, 2300, 1240]}
+  - image: 20260630_222824.jpg
+    boxes:
+      - {cls: 24, name: rubiks_cube, xyxy: [2200, 900, 2440, 1160]}
+      - {cls: 7,  name: pepsi,       xyxy: [1880, 40, 2120, 760]}
+  - image: 20260630_222306.jpg
+    boxes:
+      - {cls: 22, name: toothpaste, xyxy: [1540, 1420, 2320, 1840]}
+  - image: 20260630_222457.jpg
+    boxes:
+      - {cls: 1,  name: cup, xyxy: [1880, 660, 2160, 920]}
+  - image: 20260630_222428.jpg
+    boxes:
+      - {cls: 16, name: peach, xyxy: [2180, 1380, 2420, 1640]}
