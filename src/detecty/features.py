@@ -11,7 +11,13 @@ def masked_hue_hist(pil):
     Returns (hist[HUE_BINS] normalized, chroma_fraction). Background/table pixels
     are excluded so colour reflects the object, not the white board.
     """
-    bgr = cv2.cvtColor(np.array(pil.convert("RGB")), cv2.COLOR_RGB2BGR)
+    # GrabCut cost scales with pixel count; downscale so colour stats on large
+    # phone crops (2000-3000px) stay fast (a few ms, not seconds).
+    pil = pil.convert("RGB")
+    if max(pil.size) > 384:
+        s = 384 / max(pil.size)
+        pil = pil.resize((max(1, round(pil.size[0] * s)), max(1, round(pil.size[1] * s))))
+    bgr = cv2.cvtColor(np.array(pil), cv2.COLOR_RGB2BGR)
     h, w = bgr.shape[:2]
     mask = np.zeros((h, w), np.uint8)
     m = max(2, int(0.08 * min(h, w)))
