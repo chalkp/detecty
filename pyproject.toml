@@ -30,6 +30,7 @@ all = ["easyocr", "openai>=1.0"]
 
 [project.scripts]
 detecty-build-prototypes = "detecty.build_prototypes:main"
+detecty-build-basket-prototypes = "detecty.build_basket_prototypes:main"
 detecty-detect           = "detecty.cli:main"
 
 [project.urls]

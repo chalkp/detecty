@@ -40,6 +40,33 @@ for x in result["detections"]:
 장면에서 generic 로컬라이저가 일부 객체를 놓치는 **위치 추정 재현율 한계**도
 드러냅니다. 점수는 융합 매칭 점수(확률 아님)라 1.0을 넘을 수 있습니다.
 
+## 바스켓 스트레스 테스트
+
+`BasketDetector` 는 30종 앙상블과 분리된 **바스켓 전용** 경량 파이프라인입니다
+(Grounding DINO 위치 추정 + DINOv3 최근접 프로토타입 확인; OCR·색상·카탈로그
+뱅크 없음). `media/basket/` 의 실사용 프레임으로 스트레스 테스트했습니다 — 모션
+블러, 원거리+혼잡, 그리고 세탁실의 대표 오검출인 **드럼 세탁기**(하드 네거티브).
+
+| | |
+|---|---|
+| ![](media/basket/annotated/basket_motion_blur_result.jpg)<br>**모션 블러** — `basket 0.87` | ![](media/basket/annotated/basket_next_to_washer_result.jpg)<br>**세탁기 옆 바스켓** — `basket 0.97` |
+| ![](media/basket/annotated/basket_distant_clutter_result.jpg)<br>**원거리+혼잡** — `basket 0.69` | ![](media/basket/annotated/washer_no_basket_result.jpg)<br>**바스켓 없음(세탁기만)** — 검출 0 |
+
+실제 바스켓 3개는 모두 잡고(0.69–0.97), 프론트로더 세탁기는 전부 거부했습니다.
+프론트로더 드럼은 DINOv3 공간에서 바스켓과 겹쳐(유사도 0.56–0.63) 단순 임계값
+만으로는 분리되지 않으므로, `baskets/not_basket/*` 에 세탁기 크롭을 넣어 최근접
+프로토타입이 네거티브인 박스를 거부합니다(`negative_classes`). 바스켓과 햄퍼는
+하나의 `basket` 클래스입니다("hamper" 는 로컬라이저 동의어로만 사용).
+
+```python
+from detecty import BasketDetector
+
+# 뱅크 빌드: detecty-build-basket-prototypes --refs-dir baskets
+with BasketDetector(protos="basket_prototypes.npz", device="cpu") as det:
+    for d in det.detect("media/basket/basket_next_to_washer.jpg")["detections"]:
+        print(d["class"], round(d["score"], 2), d["bbox"])
+```
+
 ## 함수형 호출 API
 
 ```python
@@ -194,6 +221,35 @@ It also shows the **localizer recall gap**: in heavy clutter the generic
 localizer misses some objects. Scores are fused match scores (not probabilities),
 so they can exceed 1.0.
 
+## Basket stress test
+
+`BasketDetector` is the **basket-only** lightweight pipeline, decoupled from the
+30-class ensemble (Grounding DINO localize + DINOv3 nearest-prototype confirm; no
+OCR / colour / catalog bank). It was stress-tested on the real-world frames in
+`media/basket/` — motion blur, distance + clutter, and the signature laundry-room
+confuser: a **front-loader washing machine** (hard negative).
+
+| | |
+|---|---|
+| ![](media/basket/annotated/basket_motion_blur_result.jpg)<br>**Motion blur** — `basket 0.87` | ![](media/basket/annotated/basket_next_to_washer_result.jpg)<br>**Beside a washer** — `basket 0.97` |
+| ![](media/basket/annotated/basket_distant_clutter_result.jpg)<br>**Distant + clutter** — `basket 0.69` | ![](media/basket/annotated/washer_no_basket_result.jpg)<br>**No basket (washer only)** — 0 detections |
+
+All three real baskets are found (0.69–0.97) and every front-loader washer is
+rejected. Front-loader drums overlap baskets in DINOv3 space (similarity
+0.56–0.63), so a plain threshold can't separate them — instead, washing-machine
+crops in `baskets/not_basket/*` make the confirm step reject any box whose nearest
+prototype is a negative (`negative_classes`). Basket and hamper are one `basket`
+class ("hamper" survives only as a localizer synonym).
+
+```python
+from detecty import BasketDetector
+
+# bank built by: detecty-build-basket-prototypes --refs-dir baskets
+with BasketDetector(protos="basket_prototypes.npz", device="cpu") as det:
+    for d in det.detect("media/basket/basket_next_to_washer.jpg")["detections"]:
+        print(d["class"], round(d["score"], 2), d["bbox"])
+```
+
 ## Callable API
 
 ```python
@@ -304,3 +360,10 @@ src/detecty/            # the package (pip-installable)
 objects_gt/             # official Incheon2026 reference photo per object
 prototypes/<class>/*.jpg# your collected in-domain crops (prototype bank)
 ```
+
+<div align="center">
+
+🛠️ Built with ❤️ by **Your Mom**
+
+</div>
+

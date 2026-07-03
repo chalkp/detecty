@@ -1,3 +1,4 @@
 include LICENSE README.md
 recursive-include src/detecty/data *.yaml *.slurm
 recursive-include objects_gt *.jpeg *.jpg *.png
+recursive-include baskets *.jpeg *.jpg *.png
